@@ -7,7 +7,7 @@ import (
 	"task-tracker/internal/task"
 )
 
-var taskTemplate =
+var taskTemplate = 
 `
 Number: #%v
 Task: %s 

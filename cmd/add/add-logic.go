@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	jsonstruct "task-tracker/internal/json_struct"
 	"task-tracker/internal/status"
 	"task-tracker/internal/task"
 	"time"
@@ -19,8 +20,9 @@ func writeFile(data []byte) {
 	}
 }
 
-func loadData() []task.Task {
+func addTask(taskName string) {
 	file, err := os.ReadFile("file.json")
+
 	switch {
 	case errors.Is(err, os.ErrNotExist):
 	if _, createErr := os.Create("file.json"); createErr != nil {
@@ -29,24 +31,24 @@ func loadData() []task.Task {
 	case err != nil:
 		log.Fatal(err)
 	default:
-		// Do nothing
+		// Left blank intentionally
 	}
-	
-	data := []task.Task{}
-	json.Unmarshal(file, &data)
-	return data
-}
 
-func addTask(taskName string) {
+	data := jsonstruct.Data{}
+	json.Unmarshal(file, &data)
+
+	ID := data.ID + 1 
+	
 	currentTime := time.Now().Format(time.DateTime)
 	addedTask := &task.Task {
-		Title: taskName,
-		Status: status.ToDo.String(),
-		AddedDate: currentTime,
+		ID: 		ID,
+		Title: 		taskName,
+		Status: 	status.ToDo.String(),
+		AddedDate: 	currentTime,
 	}
 
-	data := loadData()
-	data = append(data, *addedTask)
+	data.Tasks = append(data.Tasks, *addedTask)
+	data.ID = ID
 
 	dataBinary, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
