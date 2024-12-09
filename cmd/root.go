@@ -5,6 +5,7 @@ import (
 	"os"
 	"task-tracker/cmd/add"
 	"task-tracker/cmd/list"
+	markdone "task-tracker/cmd/mark-done"
 
 	"github.com/spf13/cobra"
 )
@@ -21,6 +22,7 @@ var rootCmd = &cobra.Command {
 func init() {
 	rootCmd.AddCommand(add.AddCmd)
 	rootCmd.AddCommand(list.ListCmd)
+    rootCmd.AddCommand(markdone.MarkDoneCmd)
 }
 
 func Execute() {

@@ -21,7 +21,6 @@ func writeFile(data []byte) {
 
 func loadData() []task.Task {
 	file, err := os.ReadFile("file.json")
-	//TODO: write switch statement
 	switch {
 	case errors.Is(err, os.ErrNotExist):
 	if _, createErr := os.Create("file.json"); createErr != nil {

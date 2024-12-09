@@ -11,7 +11,6 @@ var AddCmd = &cobra.Command {
 			Default state is "to do".`,
     Run: func(cmd *cobra.Command, args []string) {
         addTask(args[0])
-        // fmt.Printf("Addition of %s and %s = %s.\n\n", args[0], args[1])
     },
 }
 
