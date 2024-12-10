@@ -1,7 +1,7 @@
 package category
 
 import (
-	listlogic "task-tracker/internal/list_logic"
+	"task-tracker/internal/logic"
 	"task-tracker/internal/status"
 
 	"github.com/spf13/cobra"
@@ -9,11 +9,11 @@ import (
 
 var ListInProgressCmd = &cobra.Command {
     Use:    "in-progress",
-    Short:  "Shows all tasks",
-    Long:   `Shows all tasks with specified group. 
-			Default state is "to do".`,
+    Short:  "Shows all in-progress tasks",
+    Long:   
+`Shows all tasks with "in-progress" group.`,
     Run: func(cmd *cobra.Command, args []string) {
-        listlogic.ListTask([]string{status.InProgress.String()})
+        logic.ListTask([]string{status.InProgress.String()})
     },
 }
 

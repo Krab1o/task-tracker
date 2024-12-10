@@ -8,6 +8,6 @@ type Task struct {
 	Description	null.String `json:"description"`
 	Status		string		`json:"status"`
 	AddedDate 	string		`json:"added_date"`
-	UpdatedDate null.String `json:"updated_date"`
-	Tags		null.String	`json:"tags"`
+	UpdatedDate null.String	`json:"updated_date"`
+	Tags		[]string	`json:"tags"`
 }

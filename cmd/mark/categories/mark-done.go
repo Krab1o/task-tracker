@@ -1,19 +1,21 @@
 package category
 
 import (
+	"strconv"
 	"task-tracker/internal/logic"
 	"task-tracker/internal/status"
 
 	"github.com/spf13/cobra"
 )
 
-var ListDoneCmd = &cobra.Command {
+var MarkDoneCmd = &cobra.Command {
     Use:    "done",
-    Short:  "Shows all done tasks",
+    Short:  "Marks task as done",
     Long:   
-`Shows all tasks with "done" group.`,
+`Marks task with particular ID as "done".`,
     Run: func(cmd *cobra.Command, args []string) {
-        logic.ListTask([]string{status.Done.String()})
+		val, _ := strconv.Atoi(args[0])
+        logic.MarkTask(uint32(val), status.Done.String())
     },
 }
 

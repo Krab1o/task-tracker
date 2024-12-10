@@ -2,7 +2,7 @@ package list
 
 import (
 	category "task-tracker/cmd/list/categories"
-	listlogic "task-tracker/internal/list_logic"
+	logic "task-tracker/internal/logic"
 	"task-tracker/internal/status"
 
 	"github.com/spf13/cobra"
@@ -11,10 +11,11 @@ import (
 var ListCmd = &cobra.Command {
     Use:    "list",
     Short:  "Shows all tasks",
-    Long:   `Shows all tasks with specified group. 
-			Default state is "to do".`,
+    Long:   
+`Shows all tasks with specified group. 
+Default state is "all".`,
     Run: func(cmd *cobra.Command, args []string) {
-        listlogic.ListTask(
+        logic.ListTask(
 			[]string{
 				status.ToDo.String(), 
 				status.InProgress.String(), 

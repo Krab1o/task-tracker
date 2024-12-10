@@ -1,21 +1,17 @@
-package markdone
+package logic
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
-	filelogic "task-tracker/internal/file_logic"
 	jsonstruct "task-tracker/internal/json_struct"
-	"task-tracker/internal/status"
-	"task-tracker/internal/task"
 	"time"
 
 	"github.com/guregu/null"
 )
 
-func markDoneTask(ID uint32) {
-	file, err := os.ReadFile("file.json")
+func AddTag (ID uint32, tag string) {
+	file, err := os.ReadFile(dataPath)
 
 	if err != nil {
 		log.Fatal(err)
@@ -23,12 +19,10 @@ func markDoneTask(ID uint32) {
 
 	data := jsonstruct.Data{}
 	json.Unmarshal(file, &data)
-	var doneTask task.Task
 
 	for i := range data.Tasks {
 		if (data.Tasks[i].ID == ID) {
-			doneTask = data.Tasks[i]
-			data.Tasks[i].Status = status.Done.String()
+			data.Tasks[i].Tags = append(data.Tasks[i].Tags, tag)
 			data.Tasks[i].UpdatedDate = null.StringFrom(time.Now().Format(time.DateTime))
 		}
 	}
@@ -37,8 +31,5 @@ func markDoneTask(ID uint32) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	filelogic.WriteFile(dataBinary)	
-	fmt.Printf("Task number %d done successfully!\n", doneTask.ID)
-
+	writeFile(dataBinary)
 }

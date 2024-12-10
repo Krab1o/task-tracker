@@ -1,4 +1,4 @@
-package del
+package logic
 
 import (
 	"encoding/json"
@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	filelogic "task-tracker/internal/file_logic"
 	jsonstruct "task-tracker/internal/json_struct"
 	"task-tracker/internal/task"
 )
@@ -16,8 +15,8 @@ func remove(s []task.Task, i int) []task.Task {
     return s[:len(s)-1]
 }
 
-func delTask(ID uint32) {
-	file, err := os.ReadFile("file.json")
+func DeleteTask(ID uint32) {
+	file, err := os.ReadFile(dataPath)
 
 	switch {
 	case errors.Is(err, os.ErrNotExist):
@@ -48,7 +47,7 @@ func delTask(ID uint32) {
 			log.Fatal(err)
 		}
 		
-		filelogic.WriteFile(dataBinary)	
+		writeFile(dataBinary)	
 		fmt.Printf("Task number %d deleted successfully!\n", deleteID)
 	}
 }

@@ -1,4 +1,4 @@
-package add
+package logic
 
 import (
 	"encoding/json"
@@ -6,19 +6,21 @@ import (
 	"fmt"
 	"log"
 	"os"
-	filelogic "task-tracker/internal/file_logic"
 	jsonstruct "task-tracker/internal/json_struct"
 	"task-tracker/internal/status"
 	"task-tracker/internal/task"
 	"time"
 )
 
-func addTask(taskName string) {
-	file, err := os.ReadFile("file.json")
+func AddTask(taskName string) {
+	if _, err := os.Stat(directoryPath); errors.Is(err, os.ErrNotExist) {
+		createDirectory()
+	}
 
+	file, err := os.ReadFile(dataPath)
 	switch {
 	case errors.Is(err, os.ErrNotExist):
-	if _, createErr := os.Create("file.json"); createErr != nil {
+	if _, createErr := os.Create(dataPath); createErr != nil {
 		log.Fatal(createErr)
 	}
 	case err != nil:
@@ -48,6 +50,6 @@ func addTask(taskName string) {
 		log.Fatal(err)
 	}
 	
-	filelogic.WriteFile(dataBinary)	
+	writeFile(dataBinary)	
 	fmt.Printf("Task %s added successfully!\n", taskName)
 }
