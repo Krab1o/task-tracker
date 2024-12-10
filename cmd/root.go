@@ -6,6 +6,7 @@ import (
 	"task-tracker/cmd/add"
 	"task-tracker/cmd/list"
 	markdone "task-tracker/cmd/mark-done"
+    "task-tracker/cmd/del"
 
 	"github.com/spf13/cobra"
 )
@@ -23,6 +24,7 @@ func init() {
 	rootCmd.AddCommand(add.AddCmd)
 	rootCmd.AddCommand(list.ListCmd)
     rootCmd.AddCommand(markdone.MarkDoneCmd)
+    rootCmd.AddCommand(del.DelCmd)
 }
 
 func Execute() {

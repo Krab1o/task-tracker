@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	filelogic "task-tracker/internal/file_logic"
 	jsonstruct "task-tracker/internal/json_struct"
 	"task-tracker/internal/status"
 	"task-tracker/internal/task"
@@ -12,14 +13,6 @@ import (
 
 	"github.com/guregu/null"
 )
-
-func writeFile(data []byte) {
-	permissions := 0644
-	err := os.WriteFile("file.json", data, os.FileMode(permissions))
-	if err != nil {
-		panic(err)
-	}
-}
 
 func markDoneTask(ID uint32) {
 	file, err := os.ReadFile("file.json")
@@ -45,8 +38,7 @@ func markDoneTask(ID uint32) {
 		log.Fatal(err)
 	}
 	
-	//TODO: Refactor multiple function definition
-	writeFile(dataBinary)	
-	fmt.Printf("Task %s done successfully!\n", doneTask.Title)
+	filelogic.WriteFile(dataBinary)	
+	fmt.Printf("Task number %d done successfully!\n", doneTask.ID)
 
 }

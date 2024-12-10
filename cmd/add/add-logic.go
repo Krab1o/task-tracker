@@ -6,19 +6,12 @@ import (
 	"fmt"
 	"log"
 	"os"
+	filelogic "task-tracker/internal/file_logic"
 	jsonstruct "task-tracker/internal/json_struct"
 	"task-tracker/internal/status"
 	"task-tracker/internal/task"
 	"time"
 )
-
-func writeFile(data []byte) {
-	permissions := 0644
-	err := os.WriteFile("file.json", data, os.FileMode(permissions))
-	if err != nil {
-		panic(err)
-	}
-}
 
 func addTask(taskName string) {
 	file, err := os.ReadFile("file.json")
@@ -55,6 +48,6 @@ func addTask(taskName string) {
 		log.Fatal(err)
 	}
 	
-	writeFile(dataBinary)	
+	filelogic.WriteFile(dataBinary)	
 	fmt.Printf("Task %s added successfully!\n", taskName)
 }
